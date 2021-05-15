@@ -42,7 +42,7 @@
                                             <div class="social-timeline-left">
                                                 <div class="card">
                                                     <div class="social-profile">
-                                                        <img class="img-fluid width-100" src="<%= mainUser.image %>" alt="" width="100%">
+                                                        <img class="img-fluid width-100" src="<%= mainUser.image %>" alt="" width="100%" id="user-main-social-network">
                                                         <div class="profile-hvr m-t-15">
                                                             <i class="icofont icofont-ui-edit p-r-10"></i>
                                                             <i class="icofont icofont-ui-delete"></i>
@@ -69,9 +69,40 @@
                                                         </div>
                                                         <% if (mainUser._id == user._id) { %>
                                                         <div class="">
-                                                            <button type="button" class="btn btn-outline-primary waves-effect btn-block"><i class="icofont icofont-ui-user m-r-10"></i>Chỉnh ảnh đại diện</button>
+                                                            <button type="button" data-toggle="modal" data-target="#modalEditImgUser" class="btn btn-outline-primary waves-effect btn-block"><i class="icofont icofont-ui-user m-r-10"></i>Chỉnh ảnh đại diện</button>
                                                         </div>
                                                         <% } %>
+                                                        <div id="modalEditImgUser" class="modal fade" role="dialog">
+                                                            <div class="modal-dialog">
+                                                          
+                                                              <!-- Modal content-->
+                                                              <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title">Cập nhật ảnh đại diện</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 image-col-modal-edit">
+                                                                            <input type="file" id="img-upload-input" multiple hidden accept=".jpg, .jpeg, .png" onchange="readURLImgUser(this)" style="opacity: 1; position: initial;">
+                                                                            <label for="img-upload-input" class="label-for-img-upload-input">Chọn hình ảnh đại diện</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="addPreview">
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-cancel" data-dismiss="modal">Đóng</button>
+                                                                    <button type="button" class="btn btn-primary" id="updateImgUserBtn" data-user="<%= mainUser._id %>" style="background-color: #797376;"><i class="fa fa-spinner fa-spin" style="display: none;"></i> Cập nhật</button>
+                                                                </div>
+                                                              </div>
+                                                          
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
 

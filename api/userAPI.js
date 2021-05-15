@@ -13,6 +13,7 @@ const {validationResult} = require('express-validator')
 const userUpdateBasicValidator = require('../validator/userUpdateBasicInforValidator')
 const userUpdateContactValidator = require('../validator/userUpdateContactInforValidator')
 
+const fetch = require("node-fetch");
 
 // api user: GET
 // TẤT CẢ ĐỀU SÀI _id của mongodb tự động tạo để sử dụng CRUD
@@ -38,7 +39,7 @@ router.get('/:id' ,authenticateToken,async function(req, res, next) {
 })
 
 
-router.put('/basic/:id', userUpdateBasicValidator, async (req, res, next) => {
+router.put('/basic/:id', authenticateToken, userUpdateBasicValidator, async (req, res, next) => {
     let result = validationResult(req)
     if (result.errors.length === 0) {
         const {id} = req.params
@@ -78,7 +79,7 @@ router.put('/basic/:id', userUpdateBasicValidator, async (req, res, next) => {
     }
 })
 
-router.put('/contact/:id', userUpdateContactValidator, async (req, res, next) => {
+router.put('/contact/:id', authenticateToken, userUpdateContactValidator, async (req, res, next) => {
     let result = validationResult(req)
     if (result.errors.length === 0) {
         const {id} = req.params
@@ -115,6 +116,63 @@ router.put('/contact/:id', userUpdateContactValidator, async (req, res, next) =>
 			status: false,
 			error: message
 		})
+    }
+})
+
+
+router.put('/image/:id',authenticateToken, async (req, res, next) => {
+    const {image} = req.body
+    const {id} = req.params
+    let cookie = req.cookies
+
+    try {
+        if (!image) {
+            throw new Error('Vui lòng chọn ảnh đại diện')
+        }
+
+        let queryImg = {
+            image: image,
+            image_name: id,
+            folder: `users/${id}`
+        }
+    
+        const url = await fetch(`${process.env.URL}/api/upload-image-v2`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Cookie': `connect.sid=${cookie['connect.sid']};token=${cookie.token}`
+            },
+            body: JSON.stringify(queryImg)
+        }).then(res => res.text())
+        .then(data => {
+            data = JSON.parse(data)
+            if (data.status) {
+                return data.result.url
+            }
+        }).catch(error => {
+            return res.status(500).json({
+                status: false,
+                error: error.message
+            })
+        })
+        
+        const newUser = await userModel.findByIdAndUpdate(id, {image: url}, {new: true, useFindAndModify: false})
+
+        if (newUser == null || newUser == undefined) {
+            throw new Error('Lỗi xảy ra, vui lòng refresh lại trang')
+        }
+
+        return res.status(200).json({
+            status: true,
+            message: 'Cập nhật ảnh đại diện thành công',
+            User: newUser
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            status: false,
+            error: error.message
+        })
     }
 })
 module.exports = router

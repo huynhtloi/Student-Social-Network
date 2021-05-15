@@ -5,6 +5,38 @@ body {
     min-height: 100vh;
 }
 /* Profile page */
+.profile-page .label-for-img-upload-input {
+    display: inline-block;
+    background-color: #797376;
+    color: white;
+    padding: 0.5rem;
+    font-family: sans-serif;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+.profile-page .preview-image-status-upload-modal-edit {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    align-items: baseline;
+    justify-content: space-around;
+    border: 1px solid;
+}
+
+.profile-page .preview-image-status-upload-modal-edit .fa-times {
+    cursor: pointer;
+}
+.profile-page .preview-image-status-upload-modal-edit .fa-times img {
+    margin-left: 10px;
+}
+.profile-page .spinner-border-btn-add-status {
+    display: none;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+}
 .profile-page.social-wallpaper {
     position: relative;
     height:300px;

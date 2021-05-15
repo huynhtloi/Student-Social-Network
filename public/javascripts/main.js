@@ -83,6 +83,27 @@ function removePreviewImageEditStatus() {
     temp.remove()
 }
 
+function readURLImgUser(input) {
+    if (input.files && input.files[0]) {
+  
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            $('.profile-page .addPreview').html(`
+            <div class="preview-image-status-upload-modal-edit" id="preview-image-status-upload-modal-edit-user">
+                <i class="fas fa-times" onclick="removePreviewImageEditImgUser(this)">
+                    <img src="${e.target.result}" width="200px" height="200px" id="imgPreview">
+                </i>
+            </div>
+            `)
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+}
+function removePreviewImageEditImgUser() {
+    var temp = document.getElementById('preview-image-status-upload-modal-edit-user')
+    temp.remove()
+}
+
 function showHideComments(element) {
     const statusId = element.dataset.status
     $(`.index-page .comments${statusId}`).slideToggle("slow");
@@ -133,7 +154,9 @@ function showCommentsStatus(element) {
     
                     stringCardComment = `
                     <div class="d-flex flex-row mb-2">
-                        <img src="${comment.imgAuthor}" width="40" class="round-img">
+                        <a href="./profile?id=${comment.author}">
+                            <img src="${comment.imgAuthor}" width="40" class="round-img">
+                        </a>
                         <div class="d-flex flex-column ml-2">
                             <span class="nameOfUser">${comment.nameAuthor}</span>
                             <small class="comment-text">${comment.content}</small>
@@ -679,6 +702,56 @@ $(document).ready(async function () {
             },3000)
         })
     })
+    // Edit avatar user
+    $('.profile-page #modalEditImgUser #updateImgUserBtn').on('click', e => {
+        $('.profile-page #modalEditImgUser #updateImgUserBtn .fa-spinner').show()
+        var image = $('.profile-page #modalEditImgUser #imgPreview').attr('src')
+        const id = e.target.dataset.user
+        const query = {
+            image
+        }
+        fetch(`./user/image/${id}`, {
+            method:'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(query)
+        }).then(res => res.text())
+        .then(data => {
+            data = JSON.parse(data)
+            if (data.status) {
+                let url = data.User.image
+
+                $('.profile-page #user-main-social-network').attr('src', url)
+                $('.messsageAlertPage #message-alert-show .content').html(data.message)
+                $('.messsageAlertPage #message-alert-show').fadeIn();
+    
+                setTimeout(() => {
+                    $('.messsageAlertPage #message-alert-show').fadeOut();
+                },3000)
+
+                $('.profile-page #modalEditImgUser').modal('hide')
+                $('.preview-image-status-upload-modal-edit .fa-times').trigger('click')
+            }
+            else {
+                $('.messsageAlertPage #message-alert-show .content').html(data.error)
+                $('.messsageAlertPage #message-alert-show').fadeIn();
+    
+                setTimeout(() => {
+                    $('.messsageAlertPage #message-alert-show').fadeOut();
+                },3000)
+            }
+            $('.profile-page #modalEditImgUser #updateImgUserBtn .fa-spinner').hide()
+        }).catch(e => {
+            $('.profile-page #modalEditImgUser #updateImgUserBtn .fa-spinner').hide()
+            $('.messsageAlertPage #message-alert-show .content').html(e.message)
+            $('.messsageAlertPage #message-alert-show').fadeIn();
+
+            setTimeout(() => {
+                $('.messsageAlertPage #message-alert-show').fadeOut();
+            },3000)
+        })
+    })
     // -------------------------------------------------------------------------------------------
     // Edit status infor
     $('.index-page #modalEditStatus #updateStatusByIdBtn').on('click', e => {
@@ -868,7 +941,7 @@ $(document).ready(async function () {
                                         <!--Information of post's user-->
                                         <div class="d-flex justify-content-between p-2 px-2">
                                             <div class="d-flex flex-row align-items-center">
-                                                <a href="./profile?id=${author.image}"><img src="${author.image}" alt="" class="image-user rounded-circle" width="52"></a>
+                                                <a href="./profile?id=${author._id}"><img src="${author.image}" alt="" class="image-user rounded-circle" width="52"></a>
                                                 <div class="d-flex flex-column ml-2">
                                                     <span class="font-weight-bold">${author.name}</span>
                                                     <small class="text-primary">Thông tin</small>
@@ -976,7 +1049,9 @@ $(document).ready(async function () {
                                                         // console.log(dataAuthorComment)
                                                         let cardStringComment = `
                                                         <div class="d-flex flex-row mb-2">
-                                                            <img src="${dataAuthorComment.user.image}" width="40" class="round-img">
+                                                            <a href="./profile?id=${comment.author}">
+                                                                <img src="${dataAuthorComment.user.image}" width="40" class="round-img">
+                                                            </a>
                                                             <div class="d-flex flex-column ml-2">
                                                                 <span class="nameOfUser">${dataAuthorComment.user.name}</span>
                                                                 <small class="comment-text">${comment.content}</small>
@@ -1467,9 +1542,9 @@ if($(".index-page")[0]){
         var base64Img = $('#output').attr('src')
         var urlYoutube = $('.index-page .attachments .input-link-youtube #urlYoutubeUpload').val()
 
-        userId = e.target.dataset.id
-        image = e.target.dataset.image
-        fullName = e.target.dataset.name
+        const image = document.querySelector('.index-page').dataset.image
+        const userId = document.querySelector('.index-page').dataset.userid
+        const fullName = document.querySelector('.index-page').dataset.name
 
         if (statusTitle.length !== 0) {
             let query = {
@@ -1511,7 +1586,7 @@ if($(".index-page")[0]){
                             <!--Information of post's user-->
                             <div class="d-flex justify-content-between p-2 px-2">
                                 <div class="d-flex flex-row align-items-center">
-                                    <a href="./profile?id=${author.image}"><img src="${author.image}" alt="" class="image-user rounded-circle" width="52"></a>
+                                    <a href="./profile?id=${author._id}"><img src="${author.image}" alt="" class="image-user rounded-circle" width="52"></a>
                                     <div class="d-flex flex-column ml-2">
                                         <span class="font-weight-bold">${author.name}</span>
                                         <small class="text-primary">Thông tin</small>

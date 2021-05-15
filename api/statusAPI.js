@@ -80,7 +80,7 @@ router.get('/page/:skip', authenticateToken,async function(req, res, next) {
 })
 
 // GET STATUS BY ID
-router.get('/:id' ,async function(req, res, next) {
+router.get('/:id' , authenticateToken, async function(req, res, next) {
     const id = req.params.id
     await statusModel.findById(id)
     .then((singleStatus) => {
@@ -212,7 +212,7 @@ router.put('/like/:id' ,authenticateToken,async function(req, res, next) {
 
 // PUT STATUS form BY ID
 
-router.put('/:id', statusUpdateValidator, async function(req, res, next) {
+router.put('/:id', authenticateToken, statusUpdateValidator, async function(req, res, next) {
     let result = validationResult(req)
     if (result.errors.length === 0) {
         let cookie = req.cookies
@@ -293,7 +293,7 @@ router.put('/:id', statusUpdateValidator, async function(req, res, next) {
 
 // DELETE STATUS BY ID
 
-router.delete('/:id' ,async function(req, res, next) {
+router.delete('/:id' ,authenticateToken,async function(req, res, next) {
     const id = req.params.id
     await statusModel.findByIdAndRemove(id, {useFindAndModify: false})
     .exec()
