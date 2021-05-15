@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="fonts/icomoon/style.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    
+
+    <title>Đăng nhập</title>
+</head>
+
+<body class="login-page">
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="/images/Login_image.svg" alt="Image" class="img-fluid">
+                </div>
+                <div class="col-md-6 contents">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 right">
+                            <div class="mb-4">
+                                <h3>Sign In</h3>
+                                <p class="mb-4">Student Portal</p>
+                            </div>
+                            <form method="post" id="login_form">
+                                <div class="form-group first">
+                                    <input placeholder="Username" type="text" name="username" class="form-control" id="username">
+                                </div>
+                                <div class="form-group last mb-4">
+                                    <input placeholder="Password" type="password" name="password" class="form-control" id="password">
+                                </div>
+                                <div class="d-flex mb-4 align-items-center">
+                                    <label class="control control--checkbox mb-0"><span class="caption">Remember
+                                            me</span>
+                                        <input type="checkbox" checked="checked" name="remember_me"/>
+                                        <div class="control__indicator"></div>
+                                    </label>
+                                    
+                                </div>
+                                <%if(locals.error.length > 0){ %>
+                                    <div class="show-error-login mb-2 " role="alert">
+                                        <strong class="login-content-error  text-danger "><%= error %></strong>
+                                    </div>
+                                <% }else{ %>
+                                    <div class="show-error-login hide mb-2" role="alert">
+                                        <strong class="login-content-error text-danger "></strong>
+                                    </div>
+                                <% } %>
+
+                                
+                                <div class="login-button">
+                                    
+                                    <button type="submit" class="btn btn-block btn-primary d-flex justify-content-center align-items-center">
+                                    <span class="spinner-border spinner-border-md mr-2" role="status" aria-hidden="true"></span>
+                                    Log In</button>
+
+                                </div>
+                                <span class="d-block text-left my-4 text-muted">&mdash; or &mdash;</span>
+                                <div class="social-login">
+                                    <div class="col-md-12 mb-3">
+                                        <p class="text-center">
+                                            <a href="/auth/google" class="google btn mybtn"><i class="fa fa-2x fa-google-plus">
+                                                </i> Signup using Google
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/javascripts/main.js"></script>
+
+</body>
+<script>
+    
+</script>
+</html>

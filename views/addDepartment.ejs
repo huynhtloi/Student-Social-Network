@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng ban</title>
+    <link href="https://releases.transloadit.com/uppy/v1.26.1/uppy.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <%- include partial/cdn.ejs %>
+</head>
+
+<body class="addDepartment">
+    <%- include partial/responsiveMenu.ejs %>
+    <%- include partial/topbar.ejs %>
+    <%- include partial/header-leftbar.ejs %>
+    <%- include partial/header-rightbar.ejs %>
+    <div class="container mx-auto">
+        <div class="gap2 pr-2 pl-2">
+            
+            <div aria-label="breadcrumb" class="mt-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="../">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="../department">Danh sách phòng ban</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Thêm phòng ban</li>
+                </ol>
+            </div>
+            <div class="signup-content">
+                <div class="row">
+                    <div class="signup-image col-sm-5 ">
+                        <figure><img src="/images/pexels-mateusz-dach-2811648.jpg" alt="sing up image"></figure>
+
+                    </div>
+                    <div class="signup-form col-sm-7 pr-5 pl-5">
+                        <h2 class="form-title">Tạo mới phòng ban</h2>
+
+                        <form method="POST" class="register-form" id="register-form" autocomplete="off">
+                            <div class="form-group">
+                                <label for="username"><i class="far fa-user"></i></label>
+                                <input type="text" name="username" id="username" placeholder="Tên đăng nhập">
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="fas fa-lock"></i></label>
+                                <input type="password" name="pass" id="pass" placeholder="Mật khẩu">
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="fas fa-lock"></i></label>
+                                <input type="password" name="re_pass" id="re_pass" placeholder="Xác nhận mật khẩu">
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="fas fa-file-signature"></i></label>
+                                <input type="text" name="name" id="name" placeholder="Tên phòng">
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="fas fa-code-branch"></i></label>
+                                <input type="text" name="maphong" id="maphong" placeholder="Mã phòng">
+                            </div>
+
+                            <div id="drag-drop-area"></div>
+                            
+                            <input type="hidden" name="urlImage"  id="urlImage"/>
+                            <div class="row">
+                                <h4 class="col-sm-12 p-0 pt-2 pb-2">Permission</h4>
+                                <ul class="ks-cboxtags">
+                                    
+                                    <% department.forEach(function(item){ %>
+                                        <li>
+                                            <input type="checkbox" id="<%= item.id %>" value="<%= item.type %>">
+                                            <label for="<%= item.id %>"><%= item.name %></label>
+                                        </li>
+                                    <% }) %>
+                                </ul>
+
+                            </div>
+                            
+                            <div class="collapse mt-2" id="myCollapsible">
+                                <div class="alert alert-success" role="alert">
+                                    
+                                </div>
+                            </div>
+                        </form>
+                        <button id="register" type="submit" class="btn btn-outline-primary" >Register</button>
+                        
+                    </div>  
+                   
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script src="https://releases.transloadit.com/uppy/v1.26.1/uppy.min.js"></script>
+<script src="/javascripts/main.js"></script>
+</html>

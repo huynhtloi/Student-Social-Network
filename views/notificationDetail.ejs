@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết thông báo</title>
+    <%- include partial/cdn.ejs %>
+
+</head>
+
+<body class="notification_detail">
+    <%- include partial/notification.ejs %>
+    <%- include partial/responsiveMenu.ejs %>
+    <%- include partial/topbar.ejs %>
+    <%- include partial/header-leftbar.ejs %>
+    <div class="container mx-auto">
+        <div class="gap2 gap2 pr-2 pl-2 pb-0">
+            <div aria-label="breadcrumb " class="mt-4">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item"><a href="../../">Trang chủ</a></li>    
+                    <li class="breadcrumb-item"><a href="../../department">Danh sách phòng ban</a></li>
+                    <li class="breadcrumb-item "><a href="../../notification">Tất cả thông báo</a></li>
+                    <li class="breadcrumb-item "> <a href="../<%= departmentName.type %>">Thông báo <%= departmentName.name %></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Chi tiết thông báo</li>
+                </ol>
+            </div>
+            <div class="detail-notification pt-2">
+                <h2 class="text-center text-primary">THÔNG BÁO: <%= data.title %></h2>
+                <p class="text-right font-italic"><%= data.author %>  |Ngày đăng <%= data.createAt %></p>
+                <div class="content">
+                    <%- data.content %>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <%- include partial/header-rightbar.ejs %>
+
+    <script src="/javascripts/main.js"></script>
+</body>
+
+</html>

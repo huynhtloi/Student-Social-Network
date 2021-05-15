@@ -1,0 +1,139 @@
+<div class="topbar stick">
+    <div class="loader">
+        <div class="loaderBar"></div>
+    </div>
+    <div class="logo">
+        <a title="" href="/"><img src="/images/logo.png" alt="" width="40%"></a>
+    </div>
+    <div class="top-area">
+        <div class="main-menu">
+            <span>
+                <i class="fa fa-braille"></i>
+            </span>
+        </div>
+        <div class="top-search">
+            <form method="post" class="">
+                <input type="text" placeholder="Tìm kiếm bài viết hoặc nhập một URL">
+                <button data-ripple><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+        <div class="page-name">
+            <span><a href="https://stdportal.tdtu.edu.vn" target="_blank">Std Portal TDTU</a></span>
+        </div>
+        <ul class="setting-area">
+            <li>
+                <a href="./" title="Trang chủ" data-ripple="">
+                    <i class="fa fa-home"></i>
+                </a>
+            </li>
+            <li>
+                <a href="./profile?id=<%= user._id %>"  target="_blank" title="Thông tin người dùng" data-ripple="">
+                    <i class="fa fa-user"></i>
+                </a>
+            </li>
+            <li class="notification-status">
+                <a href="./notification"  target="_blank" title="Thông báo" data-ripple="">
+                    <i class="fa fa-bell"></i>
+                </a>
+            </li>
+            <li>
+                <a href="./department" target="_blank" title="Phòng ban" data-ripple="">
+                    <i class="fas fa-building"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://lib.tdtu.edu.vn" title="Thư viện" target="_blank" data-ripple="">
+                    <i class="fas fa-book-reader"></i>
+                </a>
+            </li>
+        </ul>
+        <div class="user-img">
+            <h5><%= user.name %></h5>
+            <img src="<%=('/'+user.image).replace('/http','http') %>" alt="">
+            <span class="status f-online"></span>
+            <div class="user-setting">
+                <span class="seting-title">Cài đặt chat <a href="#" title="">xem tất cả</a></span>
+                <ul class="chat-setting">
+                    <li><a href="#" title=""><span class="status f-online"></span>online</a></li>
+                    <li><a href="#" title=""><span class="status f-away"></span>away</a></li>
+                    <li><a href="#" title=""><span class="status f-off"></span>offline</a></li>
+                </ul>
+                <span class="seting-title">Cài đặt người dùng <a href="#" title="">xem tất cả</a></span>
+                <ul class="log-out">
+                    <li><a href="#" title=""><i class="fa fa-user"></i> Thông tin cá nhân</a></li>
+                    <li><a href="#" title=""><i class="fa fa-pencil-alt"></i>Chỉnh sửa thông tin</a></li>
+                    <li><a href="#" title=""><i class="fal fa-bullseye-pointer"></i>Hoạt động đăng nhập</a></li>
+                    <li><a href="#" title=""><i class="fa fa-cog"></i>Cài đặt tài khoản</a></li>
+                    <li><a href="/auth/logout" title=""><i class="fa fa-power-off"></i>Đăng xuất</a></li>
+                </ul>
+            </div>
+        </div>
+        <span class="fa fa-cog main-menu setting-all" data-ripple=""></span>
+    </div>
+    <nav>
+        <ul class="nav-list">
+            <li><a class="" href="#" title=""><i class="fa fa-home"></i> Chủ đề</a>
+                <ul>
+                    <li><a href="#" title="">Covid</a></li>
+                    <li><a href="#" title="">Học phí</a></li>
+                    <li><a href="#" title="">Đăng ký môn học</a></li>
+                    <li><a href="#" title="">Học vụ</a></li>
+                    <li><a href="#" title="">Thông báo chiêu sinh</a></li>
+                    <li><a href="#" title="">Lịch thi - danh sách thi</a></li>
+                    <li><a href="#" title="">Sự kiện</a></li>
+                    <li><a href="#" title="">Thời khoá biểu</a></li>
+                    <li><a href="#" title="">Tốt nghiệp</a></li>
+                    <li><a href="#" title="">Phúc khảo</a></li>
+                    <li><a href="#" title="">Học phần nghề nghiệp</a></li>
+                    <li><a href="#" title="">Chính sách - học bổng</a></li>
+                    <li><a href="#" title="">Qui định - qui chế</a></li>
+                </ul>
+            </li>
+            <li><a class="" href="/department" title=""><i class="fa fa-film"></i> Phòng ban</a>
+                <ul>
+                    <li><a href="#" title="">Phòng CTHSSV</a></li>
+                    <li><a href="#" title="">Phòng đại học</a></li>
+                    <li><a href="#" title="">Phòng sau đại học</a></li>
+                    <li><a href="#" title="">Phòng điện toán và máy tính</a></li>
+                    <li><a href="#" title="">Phòng Khảo khí và KĐCL</a></li>
+                    <li><a href="#" title="">Phòng tài chính</a></li>
+                </ul>
+            </li>
+            <li><a class="" href="#" title=""><i class="fas fa-th-large"></i> Khoa</a>
+                <ul>
+                    <li><a href="#" title="">Khoa CNTT</a></li>
+                    <li><a href="#" title="">Khoa Luật</a></li>
+                    <li><a href="#" title="">Khoa giáo dục quốc tế</a></li>
+                    <li><a href="#" title="">Khoa mỹ thuật công nghiệp</a></li>
+                    <li><a href="#" title="">Khoa điện - điện tử</a></li>
+                    <li><a href="#" title="">Khoa quản trị kinh doanh</a></li>
+                    <li><a href="#" title="">Khoa môi trường và bảo hộ lao động</a></li>
+                    <li><a href="#" title="">Khoa lao động công đoàn</a></li>
+                    <li><a href="#" title="">Khoa tài chính ngân hàng</a></li>
+                </ul>
+            </li>
+            <li><a class="" href="#" title=""><i class="far fa-archway"></i> Trung tâm</a>
+                <ul>
+                    <li><a href="#" title="">TDT create language center</a></li>
+                    <li><a href="#" title="">Công ty TDT</a></li>
+                    <li><a href="#" title="">Trung tâm tin học</a></li>
+                    <li><a href="#" title="">Trung tâm đào tạo và phát triển xã hội (SDTC)</a></li>
+                    <li><a href="#" title="">Trung tâm phát triển khoa học quản lý và công nghệ ứng dụng (ATEM)</a></li>
+                    <li><a href="#" title="">Trung tâm hợp tác doanh nghiệp và cựu sinh viên</a></li>
+                    <li><a href="#" title="">Trung tâm ngoại ngữ - tin học - bồi dưỡng văn hoá (CIFLEET)</a></li>
+                    <li><a href="#" title="">Viện chính sách kinh tế và kinh doanh (IBEP)</a></li>
+                </ul>
+            </li>
+            <li><a class="" href="#" title=""><i class="fad fa-browser"></i> Cổng thông tin</a>
+                <ul>
+                    <li><a href="http://elearning.tdt.edu.vn/" target="_blank" title="E-Learning TDTU">E-Learning TDTU</a></li>
+                    <li><a href="https://stdportal.tdtu.edu.vn/" target="_blank" title="Std portal TDTU">STD portal TDTU</a></li>
+                    <li><a href="https://lib.tdtu.edu.vn/" target="_blank" title="Library TDTU">Library TDTU</a></li>
+                    <li><a href="https://elit.tdtu.edu.vn/" target="_blank" title="E-learning IT TDTU">E-learning IT TDTU</a></li>
+                    <li><a href="https://www.facebook.com/tonducthanguniversity" target="_blank" title="Fanpage TDTU">Fanpage TDTU</a></li>
+                </ul>
+            </li>
+        </ul>
+        
+    </nav><!-- nav menu -->
+</div>

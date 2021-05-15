@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ton Duc Thang University Social network</title>
+    <%- include partial/cdn.ejs %>
+</head>
+<body>
+    <div class="index-page" data-userid="<%= user._id %>" data-name="<%= user.name %>" data-image="<%= user.image %>" >
+        <div class="postoverlay"></div>
+        <%- include partial/message-alert.ejs %>
+        <%- include partial/responsiveMenu.ejs %>
+        <%- include partial/topbar.ejs %>
+        <%- include partial/header-leftbar.ejs %>
+
+        <section>
+            <div class="gap2 gray-bg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row merged20" id="page-contents">
+                                <!-- <div class="col-lg-1">
+                                    <aside class="sidebar static left">
+                                        <div class="widget">
+                                        </div>
+                                    </aside>
+                                </div> -->
+
+                                <div class="col-lg-7">
+                                    <form method="post" enctype="multipart/form-data">
+                                        <div class="central-meta postbox">
+                                            <span class="create-post">Create post</span>
+                                            <div class="new-postbox">
+                                                <figure>
+                                                    <a href="./profile?id=<%= user._id %>"><img src="<%= user.image %>" alt=""></a>
+                                                </figure>
+                                                <div class="newpst-input">
+                                                    <form method="post">
+                                                        <textarea id="statusTitle" class="statusTitle" name="statusTitle" rows="2"
+                                                            placeholder="Chia sẻ một thứ gì đó mà bạn nghĩ đến ?"></textarea>
+                                                    </form>
+                                                </div>
+                                                <div class="attachments">
+                                                    <ul>
+                                                        <li>
+                                                            <i class="fa fa-image"></i>
+                                                            <label class="fileContainer">
+                                                                <input type="file" name="imageStatus" id="imageUpload"
+                                                                    accept="image/*">
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fas fa-video"></i>
+                                                            <label class="fileContainer">
+                                                                <input type="button" id="youtubeVideoUpload" >
+                                                            </label>
+                                                        </li>
+                                                        <li>
+                                                            <i class="fas fa-grin-stars"></i>
+                                                            <label class="fileContainer">
+                                                                <input type="button" id="emojiSelector">
+                                                                <emoji-picker class="light"></emoji-picker>
+                                                            </label>
+                                                        </li>
+                                                        <li class="preview-btn">
+                                                            <button class="post-btn-preview" type="button"
+                                                                data-ripple="">Xem lại</button>
+                                                        </li>
+                                                    </ul>
+                                                    <div class="input-link-youtube">
+                                                        <label>
+                                                            Đăng video
+                                                        </label>
+                                                        <input type="text" id="urlYoutubeUpload" placeholder="Nhập link video youtube của bạn">
+                                                    </div>
+
+                                                    <div class="preview-image-upload">
+                                                        <div class="card card-outline-danger image-upload-preview" style="display: none">
+                                                            <span class="pull-right clickable close-icon close-preview-image" data-effect="fadeOut"><i class="fa fa-times"></i></span>
+                                                            <div class="card-block">
+                                                                <img id="output" width="200px">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <button class="post-btn" type="button" data-ripple="">
+                                                        <div class="spinner-border spinner-border-btn-add-status"></div>
+                                                        <div class="view-btn-add-new-status">Đăng</div>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="modal fade" id="modalDeleteStatus" role="dialog">
+                                        <div class="modal-dialog">
+                                        
+                                          <!-- Modal content-->
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Xoá bài viết</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-cancel" data-dismiss="modal">Đóng</button>
+                                                <button type="button" class="btn btn-primary" id="deleteStatusByIdBtn"><i class="fa fa-spinner fa-spin" style="display: none;"></i> Xoá</button>
+                                            </div>
+                                          </div>
+                                          
+                                        </div>
+                                    </div>
+                                    <div id="modalEditStatus" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                      
+                                          <!-- Modal content-->
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Cập nhật bài viết</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label for="">Nội dung</label>
+                                                        <textarea name="" id="statusTitleEditStatus" cols="30" rows="4" placeholder="Nhập nội dung bài viết"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div id="outer">
+                                                            <div class="button_slide slide_down" onclick="showImageEditModal(this)">Chọn ảnh</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div id="outer">
+                                                            <div class="button_slide slide_down" onclick="showVideoEditModal(this)">Chọn video</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 video-col-modal-edit">
+                                                        <label for="">Chọn link video youtube</label>
+                                                        <input type="text" id="youtubeUrlEditStatus" placeholder="Nhập link youtube của bạn">
+                                                    </div>
+                                                    <div class="col-md-12 image-col-modal-edit">
+                                                        <input type="file" id="img-upload-input" multiple hidden accept=".jpg, .jpeg, .png" onchange="readURL(this)" style="opacity: 1; position: initial;">
+                                                        <label for="img-upload-input" class="label-for-img-upload-input">Chọn hình ảnh bài viết</label>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="addPreview">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-cancel" data-dismiss="modal">Đóng</button>
+                                                <button type="button" class="btn btn-primary" id="updateStatusByIdBtn"><i class="fa fa-spinner fa-spin" style="display: none;"></i> Cập nhật</button>
+                                            </div>
+                                          </div>
+                                      
+                                        </div>
+                                    </div>
+
+
+                                    <div class="multi-card" data-length_status="<%= lengthStatus %>" data-user="<%= user._id %>">
+                                        <% locals.allStatus.forEach(status=> { %>
+                                        <!-- The Modal -->
+                                        <div class="modal fade showUserLikeModal" id="showUserLikeModal<%= status._id %>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Số người thích bài viết</h4>
+                                                    </div>
+                                                    
+                                                    <!-- Modal body -->
+                                                    <div class="modal-body listCardUserLike">
+                                                        <% status.like.forEach(l => { %>
+                                                            <div class="cardShowUserLike">
+                                                                <img src="<%= l.image %>" alt="" class="showUserLikeImg">
+                                                                <span class="nameUserLike"><%= l.name %></span>
+                                                            </div>
+                                                        <% }) %>
+                                                    </div>
+                                                    
+                                                    <!-- Modal footer -->
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-success" data-dismiss="modal">Đóng</button>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card card-<%= status._id %>">
+                                            <!--Information of post's user-->
+                                            <div class="d-flex justify-content-between p-2 px-2">
+                                                <div class="d-flex flex-row align-items-center">
+                                                    <a href="./profile?id=<%= status.user._id %>"><img src="<%= status.user.image %>" alt="" class="image-user rounded-circle" width="52"></a>
+                                                    <div class="d-flex flex-column ml-2">
+                                                        <span class="font-weight-bold">
+                                                            <%= status.user.name %>
+                                                        </span>
+                                                        <small class="text-primary">Thông tin</small>
+                                                    </div>
+                                                </div>
+                                                <!--Time and more-->
+                                                <div class="time-and-more d-flex flex-row mt-2" data-user="<%= status.user._id %>" data-status="<%= status._id %>" onclick="editStatus(this)">
+                                                    <small class="mr-2">
+                                                        <%= status.currentTime %>
+                                                    </small><i class="fas fa-ellipsis-v"></i>
+                                                </div>
+                                            </div>
+                                            <!--Area of post-->
+                                            <!-- dropdown edit status -->
+                                            <div class="dropdown-edit-status">
+                                                <div class="dropdowns">
+                                                    <ul>
+                                                        <li data-toggle="modal" data-target="#modalEditStatus" data-status="<%= status._id %>" onclick="liEditStatus(this)">
+                                                            Chỉnh sửa <i class="fas fa-edit"></i>
+                                                        </li>
+                                                        <li data-toggle="modal" data-target="#modalDeleteStatus" data-status="<%= status._id %>" onclick="liDeleteStatus(this)">
+                                                            Xoá <i class="far fa-trash-alt"></i>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <p class="text-justify ml-3 content-status">
+                                                <%= status.statusTitle %>
+                                            </p>
+                                            <div class="ajax-video-status">
+                                                <% if (status.video != undefined || status.video != null) { %>
+                                                    <iframe
+                                                        src="<%= status.video %>" height="450" frameborder="0">
+                                                    </iframe>
+                                                <% } %>
+                                            </div>
+                                            
+                                            <div class="ajax-image-status">
+                                                <img src="<%= status.image %>" alt="" class="img-fluid">
+                                            </div>
+                                            <!-- Number of Comment and Interactive-->
+                                            <div class="d-flex justify-content-between align-items-centerl">
+                                                <div class="d-flex flex-row icons d-flex align-items-center ml-3 interactive_color">
+                                                    <span>
+                                                        <i class="fa fa-thumbs-up"></i>
+                                                        <span class="view-like-user view-<%= status._id %>" title="Số người thích bài viết" href="#" data-status="<%= status._id %>" onclick="showModalUserLike(this)">
+                                                            <%= status.like.length %>
+                                                        </span> 
+                                                    </span>
+                                                </div>
+                                                <div class="d-flex flex-row interactive_color m-3">
+                                                    <span class="mr-3 cmt">Bình luận</span>
+                                                    <span class="shares">Chia sẻ</span>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <!--Interative-->
+                                            <div class="d-flex justify-content-between align-items-centerl mx-5">
+                                                <% if (status.checkLike) { %>
+                                                <div class="like liked <%= status._id %>" onclick="getLikeStatus(this)" data-id="<%= status._id %>">
+                                                            <i class=" fa fa-thumbs-up"></i> <span>Thích</span>
+                                                </div>
+                                                <% } else { %>
+                                                <div class="like <%= status._id %>" onclick="getLikeStatus(this)" data-id="<%= status._id %>">
+                                                            <i class=" fa fa-thumbs-up"></i> <span>Thích</span>
+                                                </div>
+                                                <% } %>
+                                                <div class="cmts" onclick="showHideComments(this)" data-status="<%= status._id %>">
+                                                    <i class="fa fa-comments"></i> <span>Bình
+                                                        luận</span>
+                                                </div>
+                                                <div class="shr">
+                                                    <i class="fa fa-share-square"></i> <span>Chia
+                                                        sẻ</span>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <!--Comment-->
+                                            <div class="comments mx-3 comments<%= status._id %>">
+                                                <div class="comment-input">
+                                                    <input type="text" class="form-control" id="text-content-comment<%= status._id %>">
+                                                    <div class="fonts send-comment" data-author="<%= user._id %>" data-status = "<%= status._id %>" onclick="fetchApiComment(this)">
+                                                        <i class="fas fa-paper-plane"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card-comments-user card-comments-user<%= status._id %>">
+                                                    <% if (status.comments.length !== 0) { %>
+                                                        <% status.comments.forEach(comment => { %>
+                                                            <div class="d-flex flex-row mb-2">
+                                                                <a href="./profile?id=<%= comment.id %>"><img src="<%= comment.imgAuthor %>" width="40" class="round-img"></a>
+                                                                <div class="d-flex flex-column ml-2">
+                                                                    <span class="nameOfUser"><%= comment.nameAuthor %></span>
+                                                                    <small class="comment-text"><%= comment.content %></small>
+                                                                    <div
+                                                                        class="d-flex flex-row align-items-center interactive_comment_color">
+                                                                        <small>Thích</small>
+                                                                        <small>Trả lời</small>
+                                                                        <small>Dịch</small>
+                                                                        <small><%= comment.dateModified %></small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <% }) %>
+                                                    <% } %>
+                                                </div>
+                                                <div class="spinner-border check-loading-preview-<%= status._id %>"></div>
+                                                <div class="notification-preview-comments notification-preview-comments-<%= status._id %>">
+                                                    Không còn bài viết nào
+                                                </div>
+                                                <div class="preview-comments-before" onclick="showCommentsStatus(this)" data-status = "<%= status._id %>">
+                                                    Xem thêm bình luận
+                                                </div>
+                                                <div class="focus-btn-post-comment" onclick="focusPostBtnComment(this)" data-status = "<%= status._id %>">
+                                                    Viết bình luận của bạn...
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }) %>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="notification position-fixed">
+                                        <div class="row d-flex justify-content-center mt-0 ">
+                                            <div class="col-md-12">
+                                                <div class="main-card mb-3 card">
+                                                    <div class="card-body notification-body">
+                                                        <h5 class="card-title mb-0">Thông báo gần đây</h5>
+                                                        <p class="text-right mb-0"><a href="/notification"
+                                                                class="text-right">Xem tất cả</a></p>
+                                                        <div class="loading loadingio-spinner-eclipse-xfa10kxbc8e w-100 ">
+                                                            <div class="ldio-5zwd5fyq11k d-flex justify-content-center">
+                                                                <div></div>
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="vertical-timeline vertical-timeline--animate vertical-timeline--one-column">
+
+                                                            <div class="spinerLoadingNotification d-flex justify-content-center">
+                                                                <div class="spinner-border" role="status">
+                                                                  <span class="sr-only">Loading...</span>
+                                                                </div>
+                                                                <p class="hide">Đã load hết thông báo</p>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="loader">Loading...</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <%- include partial/notification.ejs %>
+
+        </section>
+
+        <%- include partial/header-rightbar.ejs %>
+
+        <!-- Back to top button -->
+        <a id="back-to-top-button"></a>
+    </div>
+
+    <script src="/javascripts/main.js"></script>
+
+</body>
+
+</html>

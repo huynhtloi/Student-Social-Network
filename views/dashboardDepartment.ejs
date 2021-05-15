@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng ban</title>
+    <%- include partial/cdn.ejs %>
+</head>
+
+<body class="dashboardDepartment">
+    <%- include partial/notification.ejs %>
+    <%- include partial/responsiveMenu.ejs %>
+    <%- include partial/topbar.ejs %>
+    <%- include partial/header-leftbar.ejs %>
+    <div class="container mx-auto">
+        <div class="gap2 pr-2 pl-2">
+            <div aria-label="breadcrumb" class="mt-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="./">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh sách phòng ban <a
+                            href="/department/add">
+                        <%if(user.type === "admin"){ %>
+                            <i class="fas fa-plus-circle"></i>
+                        <% } %>
+                        </a></li>
+                </ol>
+            </div>
+            <div class="row pt-4 mt-0">
+                <% department.forEach(function(item){ %>
+                    <a href="/notification/<%= item.type %>" class="col-xl-3 col-md-4 mb-4">
+                        <div class="card border-left-primary shadow h-100 pb-0 mb-0">
+                            <div class="card-img">
+                                <img class="card-img-top" src="<%= item.image %>" 
+                                alt="<%= item.name %>">
+                                <div class="loading d-flex justify-content-center align-items-center">
+                                    <div class="spinner-border text-primary " role="status">
+                                        <span class="sr-only">Loading...</span>
+                                      </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card-footer">
+                                <p class="card-text text-center"><%= item.name %></p>
+                            </div>
+                        </div>
+                    </a>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+    <%- include partial/header-rightbar.ejs %>
+    <script src="/javascripts/main.js"></script>
+</body>
+
+</html>

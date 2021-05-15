@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phòng ban</title>
+    <%- include partial/cdn.ejs %>
+</head>
+
+<body class="notificationPage">
+    <%- include partial/notification.ejs %>
+    <%- include partial/responsiveMenu.ejs %>
+    <%- include partial/topbar.ejs %>
+    <%- include partial/header-leftbar.ejs %>
+    <div class="container mx-auto">
+        <div class="gap2 gap2 pr-2 pl-2 pb-0">
+            <div aria-label="breadcrumb " class="mt-4">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item"><a href="../">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="../department">Danh sách phòng ban</a></li>
+                    <% if(locals.departmentName){%>
+                        <li class="breadcrumb-item"><a href="../notification">Tất cả thông báo</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Thông báo <%= departmentName.name %>
+                    <% }else{%>
+                        <li class="breadcrumb-item active" aria-current="page">Tất cả thông báo 
+                    <% } %>
+                    
+                     <% if(locals.isAdd){%>
+                            <a data-toggle="modal" data-target="#modalAddNotification">
+                                <i class="fas fa-plus-circle text-primary"></i>
+                            </a>
+                             <!-- Modal -->
+                            <div class="modal fade bd-example-modal-lg" id="modalAddNotification" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg " role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Thêm thông báo</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    </div>
+                                    <form id="formAddNotification" data-url ="<%=departmentName.type %>" data-author ="<%=departmentName.name %>" >
+                                        <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="titleNotification">Tiêu đề thông báo</label>
+                                                    <input type="text" class="form-control" id="titleNotification" placeholder="Tiêu đề">
+
+                                                </div>
+                                                <div id="toolbar-container"></div>
+
+                                                <!-- This container will become the editable. -->
+                                                <div id="editor">
+                                                </div>
+                                                <p class="messageAddNotification mb-0"></p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                            <button type="submit"  class="btn btn-primary post_notification_button">Thêm</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                </div>
+                            </div>
+                        <% } %>
+                    </li>
+                </ol>
+            </div>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                   
+                </ul>
+            </nav>
+            <div class="row pt-1">
+                <div class="col-lg-7 col-xl-8 col-md-12 col-sm-12">
+                    
+                    <ul class="list-group rounded list-notification">
+                        <li class="list-group-item ">
+                            <div class="animated-background">
+                                <a class="background-masker font-weight-bold " href="#"></a>
+                                <p class="background-masker head"></p>
+                                <div class="background-masker content">
+                                </div>
+                                <p class="background-masker body"></p>
+                            </div>
+                        </li>
+                        <li class="list-group-item ">
+                            <div class="animated-background">
+                                <a class="background-masker font-weight-bold " href="#"></a>
+                                <p class="background-masker head"></p>
+                                <div class="background-masker content">
+                                </div>
+                                <p class="background-masker body"></p>
+                            </div>
+                        </li>
+                        <li class="list-group-item ">
+                            <div class="animated-background">
+                                <a class="background-masker font-weight-bold " href="#"></a>
+                                <p class="background-masker head"></p>
+                                <div class="background-masker content">
+                                </div>
+                                <p class="background-masker body"></p>
+                            </div>
+                        </li>
+                        <li class="list-group-item ">
+                            <div class="animated-background">
+                                <a class="background-masker font-weight-bold " href="#"></a>
+                                <p class="background-masker head"></p>
+                                <div class="background-masker content">
+                                </div>
+                                <p class="background-masker body"></p>
+                            </div>
+                        </li>
+                        <li class="list-group-item ">
+                            <div class="animated-background">
+                                <a class="background-masker font-weight-bold " href="#"></a>
+                                <p class="background-masker head"></p>
+                                <div class="background-masker content">
+                                </div>
+                                <p class="background-masker body"></p>
+                            </div>
+                        </li>
+                        <li class="list-group-item ">
+                            <div class="animated-background">
+                                <a class="background-masker font-weight-bold " href="#"></a>
+                                <p class="background-masker head"></p>
+                                <div class="background-masker content">
+                                </div>
+                                <p class="background-masker body"></p>
+                            </div>
+                        </li>
+                        <li class="list-group-item ">
+                            <div class="animated-background">
+                                <a class="background-masker font-weight-bold " href="#"></a>
+                                <p class="background-masker head"></p>
+                                <div class="background-masker content">
+                                </div>
+                                <p class="background-masker body"></p>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </div>
+                <div class="col-lg-5 col-xl-4 col-md-12 col-sm-12">
+                    <div class="row ml-0 mr-0">
+                        <div class="filter col-lg-12 col-md-6 p-4 bg-white">
+                            <h4>Lọc thông báo</h4>
+    
+                            <form id="form_filter" method="post">
+                                <div class="form-group">
+                                    <label for="selectDepartment">Lọc theo phòng ban</label>
+                                    <select name="phongban" class="form-control" id="selectDepartment">
+                                        <%if(locals.maphong) { %>
+                                            <option disabled selected="selected" value="<%=maphong %>"><%=departmentName.name %></option>
+                                        <% }else{ %>
+                                            <option></option>
+                                            <% department.forEach(function(item){ %>
+                                                <option value="<%= item.type %>"><%= item.name %></option>
+                                            <% }) %>
+                                        <% } %>
+                                        
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" name="unread" id="unread" class="mt-3">
+                                    <label class="form-check-label" for="unread">Thông báo chưa đọc</label>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-check-label" for="beginDatepicker">Ngày bắt đầu</label>
+                                    <input id="beginDatepicker" name="startDate" width="276" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-check-label" for="endDatepicker">Ngày kết thúc</label>
+                                    <input id="endDatepicker" width="276" name="endDate" />
+                                </div>
+                               
+                                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                            </form>
+    
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <%- include partial/header-rightbar.ejs %>
+    </div>
+    <script src="/javascripts/main.js"></script>
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://momentjs.com/downloads/moment.js" type="text/javascript"></script>
+
+</body>
+
+</html>
