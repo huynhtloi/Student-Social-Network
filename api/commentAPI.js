@@ -98,7 +98,7 @@ router.post('/', authenticateToken,async function(req, res, next) {
     await comment
     .save()
     .then((newComment) => {
-        io.emit('add-comment',newComment, req.user._id)
+        io.emit('add-comment',newComment)
         return res.status(201).json({
         success: true,
         message: 'New comment created successfully',

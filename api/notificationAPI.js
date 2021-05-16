@@ -120,6 +120,18 @@ router.put('/',authenticateTokenAPI, updateNoffication ,async (req,res)=>{
 
 })
 
+router.delete('/:id', authenticateTokenAPI, async (req, res) => {
+    let {id} = req.params
+    
+    try {
+        let result = await notification.deleteOne({_id:id, department:req.user.type})
+        res.json({status:200,mess:"success"})
+    } catch (error) {
+        console.log(error)
+        res.json({status:500,mess:error})
+    }
+    
+})
 
 
 module.exports = router

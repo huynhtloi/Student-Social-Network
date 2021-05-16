@@ -23336,3 +23336,9 @@ a.btn2:hover,
 .addDepartment ul.ks-cboxtags li input[type="checkbox"]:focus + label {
     border: 2px solid #e9a1ff;
 }
+.notificationPage .deleteNoti{
+    display:none
+}
+.add .deleteNoti{
+    display:block;
+}

@@ -347,7 +347,7 @@ $(document).ready(async function () {
     socket.on('add-notification', (data) => {
         
         $(".notificationPage .list-notification").prepend(
-            ` <li class="list-group-item">
+            ` <li class="list-group-item" id="${data.id}>
                 <h4 class="title" >${data.title}</h4>
                 <div class="content">
                     <a href="/notification/${data.department}/${data.id}">Chi tiết thông báo</a>
@@ -382,8 +382,9 @@ $(document).ready(async function () {
     // -------------------------------------------------------------------------------------------
     // socket add comment
 
-    socket.on('add-comment', (data, mainUser) => {
+    socket.on('add-comment', (data) => {
         // console.log("data comment:",data)
+        const mainUser = document.querySelector('.index-page').dataset.userid
         fetch(`/user/${data.author}`, {
             method: 'GET'
         })
@@ -1181,6 +1182,31 @@ $(document).ready(async function () {
         v.src = v.src;
     });
     if ($(".notificationPage")[0]) {
+        $('.notificationPage').on('click', '.deleteNoti', function() {
+            // Code
+            $("#notification-name").text($(this).parent().children('.title').text())
+            $("#notification-id").val($(this).parent().attr('id'))
+            $("#exampleModal .error").text(" ")
+            $('#exampleModal').modal('show')
+        });
+        $(".delete-notification").click(function(){
+            fetch('/api/notification/'+$("#notification-id").val(),{
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(res => res.json())
+            .then(data => {
+                if(data.status===200){
+                    $(`#${$("#notification-id").val()}`).remove()
+                    $('#exampleModal').modal('hide')
+
+                }else{
+                    $("#exampleModal .error").text("Xảy ra lỗi")
+                }
+            }).catch(e => console.log(e))
+        })
         var data = []
         let indexPage=1
         let numberPage = 1
@@ -1202,12 +1228,13 @@ $(document).ready(async function () {
             tempData.forEach(item =>{
 
                 stringdata +=`
-                    <li class="list-group-item">
+                    <li class="list-group-item" id="${item._id}">
                         <h4 class="title" >${item.title}</h4>
                         <div class="content">
                             <a href="/notification/${item.department}/${item._id}">Chi tiết thông báo</a>
                         </div>
                         <p class="font-italic">[${item.author }] - ${item.createAt}</p>
+                        <span class="deleteNoti"><i class="fas fa-trash text-danger"></i></span>
                     </li>
                 `
             })

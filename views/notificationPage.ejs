@@ -7,7 +7,11 @@
     <title>Thông báo phòng ban</title>
     <%- include partial/cdn.ejs %>
 </head>
-
+<% if(locals.isAdd){%>
+    <body class="notificationPage add">
+<% }else{%>
+    <body class="notificationPage">
+<% } %>
 <body class="notificationPage">
     <%- include partial/notification.ejs %>
     <%- include partial/responsiveMenu.ejs %>
@@ -27,6 +31,27 @@
                     <% } %>
                     
                      <% if(locals.isAdd){%>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Xoá thông báo</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  Bạn có chắc chắn muốn xoá thông báo <b><span id="notification-name"></span></b>
+                                </div>
+                                <input type="hidden" id="notification-id">
+                                <div class="error text-danger ml-3"></div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-danger delete-notification">Xoá</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                             <a data-toggle="modal" data-target="#modalAddNotification">
                                 <i class="fas fa-plus-circle text-primary"></i>
                             </a>
@@ -187,6 +212,7 @@
             </div>
 
         </div>
+        
         <%- include partial/header-rightbar.ejs %>
     </div>
     <script src="/javascripts/main.js"></script>
