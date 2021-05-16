@@ -1021,6 +1021,8 @@ emoji-picker {
 }
 .index-page .spinerLoadingNotification{
     height: 30px;
+    display:flex;
+    justify-content: center;
 }
 .index-page .index-page .spinerLoadingNotification{
     display: none;
@@ -23273,6 +23275,7 @@ a.btn2:hover,
     width: auto !important;
 }
 .addDepartment ul.ks-cboxtags {
+    overflow: scroll;
     list-style: none;
     padding: 20px;
 }
