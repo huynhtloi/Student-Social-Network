@@ -67,20 +67,11 @@ router.post('/add', addDepartmentValidator, async function (req, res, next) {
     }
 });
 
-router.get('/:id', async function (req, res, next) {
-	let maphong = req.params.id
-	if (maphong === "admin" || maphong === "student") {
-		next(createError(404));
-	}
-	if (req.user.type === "student") {
-		return res.redirect('/notification/'+maphong)
-	}
-	let user = await User.find({ type: maphong })
 
-	res.send('trang chinh');
+// CATCH ERROR AND FORWARD TO HANDLE
+router.get("*",function (req, res, next) {
+	res.render("notfound")
 });
-
-
 
 
 module.exports = router

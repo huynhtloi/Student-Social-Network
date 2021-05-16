@@ -22,5 +22,7 @@ router.get('/',authenticateToken,async (req, res, next) => {
         moment
     })
 })
-
+router.get("*",function (req, res, next) {
+	res.render("notfound")
+});
 module.exports = router

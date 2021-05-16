@@ -111,7 +111,7 @@ app.use("/profile", profileRouter);
 
 // CATCH ERROR AND FORWARD TO HANDLE
 app.use(function (req, res, next) {
-	res.render("notfound")
+	return res.render("notfound")
 });
 
 // ERROR HANDLE
@@ -122,7 +122,7 @@ app.use(function (err, req, res, next) {
 
 	// render the error page
 	res.status(err.status || 500);
-	res.render("error");
+	return res.render("error");
 });
 
 

@@ -35,13 +35,13 @@ router.get("/",authenticateToken, async function (req, res, next) {
 router.get("/:id",authenticateToken, async function (req, res, next) {
 	let maphong = req.params.id;
 	if (maphong === "admin" || maphong === "student") {
-		next(createError(404));
+		return res.render("notfound")
 	}
 	let phong = await User.findOne({
 		type: maphong,
 	});
 	if (phong === null) {
-		return next(createError(404));
+		return res.render("notfound")
 	}
 	let department = await User.find({
 		$and: [
@@ -71,7 +71,7 @@ router.get("/:id",authenticateToken, async function (req, res, next) {
 		isAdd = false;
 	}
 
-	res.render("notificationPage", {
+	return res.render("notificationPage", {
 		user: req.user,
 		departmentName: phong,
 		department: department,
@@ -83,17 +83,17 @@ router.get("/:id",authenticateToken, async function (req, res, next) {
 router.get("/:maphong/:id",authenticateToken, async function (req, res, next) {
 	let {maphong, id} = req.params
 	if (maphong === "admin" || maphong === "student") {
-		next(createError(404));
+		res.render("notfound")
 	}
 	let phong = await User.findOne({
 		type: maphong,
 	});
 	if (phong === null) {
-		return next(createError(404));
+		return res.render("notfound")
 	}
 	let data =await notification.findOne({_id:id})
 	if(data===null){
-		return next(createError(404));
+		return res.render("notfound")
 	}
 	let d = new Date(data.createAt);
 	data.createAt = d.toJSON().slice(0,10).split('-').reverse().join('-')
@@ -101,4 +101,7 @@ router.get("/:maphong/:id",authenticateToken, async function (req, res, next) {
 	
 });
 
+router.get("*",function (req, res, next) {
+	return res.render("notfound")
+});
 module.exports = router;

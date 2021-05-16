@@ -151,4 +151,8 @@ router.post('/', authenticateToken, async function(req, res, next) {
         })
 });
 
+
+// router.get("*",function (req, res, next) {
+// 	res.render("notfound")
+// });
 module.exports = router;

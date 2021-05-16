@@ -848,7 +848,7 @@ emoji-picker {
 .index-page .notification .card-body {
     flex: 1 1 auto;
     padding: 1.25rem;
-    max-height: 800px;
+    max-height: 700px;
     overflow-y: hidden;
 }
 .index-page .notification .card-body:hover {
