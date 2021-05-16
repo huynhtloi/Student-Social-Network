@@ -410,7 +410,7 @@ $(document).ready(async function () {
                                 <small>Trả lời</small>
                                 <small>Dịch</small>
                                 ${smallString}
-                                <small>${getPassedTime(new Date(data.dateModified),Date.now())}</small>
+                                <small>0 giây trước</small>
                             </div>
                         </div>
                     </div>`
