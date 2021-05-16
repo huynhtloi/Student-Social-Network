@@ -98,7 +98,7 @@ router.post('/', authenticateToken,async function(req, res, next) {
     await comment
     .save()
     .then((newComment) => {
-        io.emit('add-comment',newComment)
+        io.emit('add-comment',newComment, req.user._id)
         return res.status(201).json({
         success: true,
         message: 'New comment created successfully',
@@ -163,13 +163,15 @@ router.put('/:id' ,authenticateToken,async function(req, res, next) {
 
 router.delete('/:id' ,authenticateToken,async function(req, res, next) {
     const id = req.params.id
-    await commentsModel.findByIdAndRemove(id)
+    await commentsModel.findByIdAndRemove(id, {useFindAndModify: false})
     .exec()
-    .then(()=> res.status(204).json({
-        success: true,
+    .then(()=> res.status(200).json({
+        status: true,
+        message: 'Xoá bình luận thành công'
     }))
     .catch((err) => res.status(500).json({
-        success: false,
+        status: false,
+        error: 'Lỗi xảy ra, vui lòng refresh lại trang'
     }));
 })
 module.exports = router

@@ -35,6 +35,11 @@ function showModalUserLike(element) {
     $(`.index-page #showUserLikeModal${statusId}`).modal()
 }
 
+function smallDeleteComment(element) {
+    var comment = element.dataset.comment
+    $('.index-page #modalDeleteComment').attr('data-comment', comment)
+}
+
 function liEditStatus(element) {
     $('.index-page #modalEditStatus .video-col-modal-edit').hide()
     $('.index-page #modalEditStatus .image-col-modal-edit').hide()
@@ -116,6 +121,7 @@ function focusPostBtnComment(element) {
     // comment
 function showCommentsStatus(element) {
     const statusId = element.dataset.status
+    const mainUser = document.querySelector('.index-page').dataset.userid
     const commentLength = $(`.index-page .comments .card-comments-user${statusId}`).children().length
     // console.log(`số comment:${commentLength} của id ${statusId}`)
     fetch(`/comment/status/${statusId}/${commentLength}`,{
@@ -151,9 +157,14 @@ function showCommentsStatus(element) {
                     }).catch(e => console.log(e))
                     comment["nameAuthor"] = nameAuthor
                     comment["imgAuthor"] = imgAuthor
-    
+                    let smallString = ""
+                    if (mainUser == comment.author) {
+                        smallString = `
+                        <small data-toggle="modal" data-target="#modalDeleteComment" data-comment="${comment.author}" onclick="smallDeleteComment(this)">Xoá</small>
+                        `
+                    }
                     stringCardComment = `
-                    <div class="d-flex flex-row mb-2">
+                    <div class="d-flex flex-row mb-2" id="ajax-delete-${comment.author}">
                         <a href="./profile?id=${comment.author}">
                             <img src="${comment.imgAuthor}" width="40" class="round-img">
                         </a>
@@ -165,6 +176,7 @@ function showCommentsStatus(element) {
                                 <small>Thích</small>
                                 <small>Trả lời</small>
                                 <small>Dịch</small>
+                                ${smallString}
                                 <small>${getPassedTime(new Date(comment.dateModified),Date.now())}</small>
                             </div>
                         </div>
@@ -370,7 +382,7 @@ $(document).ready(async function () {
     // -------------------------------------------------------------------------------------------
     // socket add comment
 
-    socket.on('add-comment', (data) => {
+    socket.on('add-comment', (data, mainUser) => {
         // console.log("data comment:",data)
         fetch(`/user/${data.author}`, {
             method: 'GET'
@@ -379,8 +391,14 @@ $(document).ready(async function () {
         .then(json => {
             // console.log('data user:',json)
             if (json.success) {
+                let smallString = ""
+                if (mainUser == json.user._id) {
+                    smallString = `
+                    <small data-toggle="modal" data-target="#modalDeleteComment" data-comment="${data._id}" onclick="smallDeleteComment(this)">Xoá</small>
+                    `
+                }
                 $(`.index-page .comments${data.statusId} .card-comments-user`).prepend(
-                    `<div class="d-flex flex-row mb-2">
+                    `<div class="d-flex flex-row mb-2" id="ajax-delete-${data._id}">
                         <a href="./profile?id=${json.user._id}"><img src="${json.user.image}" width="40" class="round-img"></a>
                         <div class="d-flex flex-column ml-2"> <span
                                 class="nameOfUser">${json.user.name}</span>
@@ -390,6 +408,7 @@ $(document).ready(async function () {
                                 <small>Thích</small>
                                 <small>Trả lời</small>
                                 <small>Dịch</small>
+                                ${smallString}
                                 <small>${getPassedTime(new Date(data.dateModified),Date.now())}</small>
                             </div>
                         </div>
@@ -667,6 +686,45 @@ $(document).ready(async function () {
         $(".image-upload-preview").css("display", "block")
         $('.index-page .preview-image-upload').addClass('active');
     })
+
+    $('.index-page #modalDeleteComment #deleteCommentStatusModalBtn').on('click', e => {
+        const comment = $('.index-page #modalDeleteComment').attr('data-comment')
+        $('.index-page #modalDeleteComment #deleteCommentStatusModalBtn .fa-spinner').show()
+        fetch(`./comment/${comment}`, {
+            method: 'DELETE'
+        }).then(res => res.text())
+        .then(data => {
+            data = JSON.parse(data)
+            if (data.status) {
+                $(`.index-page #ajax-delete-${comment}`).remove()
+                $('.index-page #modalDeleteComment #deleteCommentStatusModalBtn .fa-spinner').hide()
+                $('.messsageAlertPage #message-alert-show .content').html(data.message)
+                $('.messsageAlertPage #message-alert-show').fadeIn();
+    
+                setTimeout(() => {
+                    $('.messsageAlertPage #message-alert-show').fadeOut();
+                },3000)
+                $('.index-page #modalDeleteComment').modal('hide')
+            }
+            else {
+                $('.index-page #modalDeleteComment #deleteCommentStatusModalBtn .fa-spinner').hide()
+                $('.messsageAlertPage #message-alert-show .content').html(data.error)
+                $('.messsageAlertPage #message-alert-show').fadeIn();
+    
+                setTimeout(() => {
+                    $('.messsageAlertPage #message-alert-show').fadeOut();
+                },3000)
+            }
+        }).catch(e => {
+            $('.index-page #modalDeleteComment #deleteCommentStatusModalBtn .fa-spinner').hide()
+            $('.messsageAlertPage #message-alert-show .content').html(e.message)
+            $('.messsageAlertPage #message-alert-show').fadeIn();
+
+            setTimeout(() => {
+                $('.messsageAlertPage #message-alert-show').fadeOut();
+            },3000)
+        })
+    })
     // -------------------------------------------------------------------------------------------
     // delete status
     $('.index-page #modalDeleteStatus #deleteStatusByIdBtn').on('click', e => {
@@ -828,6 +886,7 @@ $(document).ready(async function () {
     // Scroll load status
     if ($(".index-page")[0]) {
         $(window).on("scroll",async () => {
+            const mainUser = document.querySelector('.index-page').dataset.userid
             var scrollHeight = $(document).height();
             var scrollPosition = $(window).height() + $(window).scrollTop();
             const statusLengthInPage = $('.index-page .multi-card .card').length
@@ -1046,9 +1105,15 @@ $(document).ready(async function () {
                                                 .then(dataAuthorComment => {
                                                     dataAuthorComment = JSON.parse(dataAuthorComment)
                                                     if (dataAuthorComment.success) {
+                                                        let smallString = ""
                                                         // console.log(dataAuthorComment)
+                                                        if (mainUser == comment.author) {
+                                                            smallString = `
+                                                            <small data-toggle="modal" data-target="#modalDeleteComment" data-comment="${comment.author}" onclick="smallDeleteComment(this)">Xoá</small>
+                                                            `
+                                                        }
                                                         let cardStringComment = `
-                                                        <div class="d-flex flex-row mb-2">
+                                                        <div class="d-flex flex-row mb-2" id="ajax-delete-${comment.author}">
                                                             <a href="./profile?id=${comment.author}">
                                                                 <img src="${dataAuthorComment.user.image}" width="40" class="round-img">
                                                             </a>
@@ -1060,6 +1125,7 @@ $(document).ready(async function () {
                                                                     <small>Thích</small>
                                                                     <small>Trả lời</small>
                                                                     <small>Dịch</small>
+                                                                    ${smallString}
                                                                     <small>${getPassedTime(new Date(comment.dateModified),Date.now())}</small>
                                                                 </div>
                                                             </div>

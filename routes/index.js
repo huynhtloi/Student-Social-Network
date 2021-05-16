@@ -8,13 +8,14 @@ const {getCurrentTime} = require('../config/currentTime')
 
 /* GET users listing. */
 router.get('/' , authenticateToken,async function(req, res) {
-    cookie = req.cookies
+    let token = req.cookies.token
+    let connectId = req.cookies['connect.sid']
     // khai báo khi vào index mặc định load 3 status
     await fetch(process.env.URL + `/status/page/0`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Cookie': `connect.sid=${cookie['connect.sid']};token=${cookie.token}`
+            'Cookie': `connect.sid=${connectId};token=${token}`
         }
     })
     .then(res => res.text())
@@ -46,13 +47,14 @@ router.get('/' , authenticateToken,async function(req, res) {
                     // gắn lại giá trị default cho biến checkLike để sử dụng cho element vòng lặp kế tiếp
                     checkLike = false
                 }
-    
+                
+
                 // fetch get comment API: lấy các comment trong 1 status
                 let comments = await fetch(`${process.env.URL}/comment/status/${status._id}/0`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Cookie': `connect.sid=${cookie['connect.sid']};token=${cookie.token}`
+                        'Cookie': `connect.sid=${connectId};token=${token}`
                     }
                 })
                 .then(res => res.text())
@@ -66,7 +68,7 @@ router.get('/' , authenticateToken,async function(req, res) {
                                 method: 'GET',
                                 headers: {
                                     'Content-Type': 'application/json',
-                                    'Cookie': `connect.sid=${cookie['connect.sid']};token=${cookie.token}`
+                                    'Cookie': `connect.sid=${connectId};token=${token}`
                                 }
                             })
                             .then(res => res.text())
@@ -123,7 +125,8 @@ router.post('/', authenticateToken, async function(req, res, next) {
     const statusTitle = req.body.statusTitle
     let image = req.body.imageStatus
     let video = req.body.urlYoutube
-
+    let token = req.cookies.token
+    let connectId = req.cookies['connect.sid']
     let status = {
         statusTitle: statusTitle,
         image: image,
@@ -133,7 +136,7 @@ router.post('/', authenticateToken, async function(req, res, next) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Cookie': `connect.sid=${cookie['connect.sid']};token=${cookie.token}`
+                'Cookie': `connect.sid=${connectId};token=${token}`
             },
             body: JSON.stringify(status)
         })

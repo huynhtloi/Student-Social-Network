@@ -94,6 +94,26 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <div class="modal fade" id="modalDeleteComment" role="dialog">
+                                        <div class="modal-dialog">
+                                        
+                                          <!-- Modal content-->
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Xoá bình luận</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <p>Bạn chắc chắn xoá bình luận này ?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-cancel" data-dismiss="modal">Đóng</button>
+                                              <button type="button" class="btn btn-primary" id="deleteCommentStatusModalBtn"><i class="fa fa-spinner fa-spin" style="display: none;"></i> Xoá</button>
+                                            </div>
+                                          </div>
+                                          
+                                        </div>
+                                    </div>
                                     <div class="modal fade" id="modalDeleteStatus" role="dialog">
                                         <div class="modal-dialog">
                                         
@@ -292,7 +312,7 @@
                                                 <div class="card-comments-user card-comments-user<%= status._id %>">
                                                     <% if (status.comments.length !== 0) { %>
                                                         <% status.comments.forEach(comment => { %>
-                                                            <div class="d-flex flex-row mb-2">
+                                                            <div class="d-flex flex-row mb-2" id="ajax-delete-<%= comment._id %>">
                                                                 <a href="./profile?id=<%= comment.id %>"><img src="<%= comment.imgAuthor %>" width="40" class="round-img"></a>
                                                                 <div class="d-flex flex-column ml-2">
                                                                     <span class="nameOfUser"><%= comment.nameAuthor %></span>
@@ -302,6 +322,9 @@
                                                                         <small>Thích</small>
                                                                         <small>Trả lời</small>
                                                                         <small>Dịch</small>
+                                                                        <% if (comment.id == user._id) { %>
+                                                                            <small data-toggle="modal" data-target="#modalDeleteComment" data-comment="<%= comment._id %>" onclick="smallDeleteComment(this)">Xoá</small>
+                                                                        <% } %>
                                                                         <small><%= comment.dateModified %></small>
                                                                     </div>
                                                                 </div>

@@ -6,6 +6,8 @@ const {validationResult}= require('express-validator')
 const socketIO = require("../config/socketIO")
 const Notification = require('../models/notification')
 const Permission = require('../models/permission')
+const updateNoffication = require('../validator/updateNoffication')
+const notification = require('../models/notification')
 // GET
 const io = socketIO.io;
 
@@ -85,6 +87,39 @@ router.post('/',authenticateTokenAPI, postNofiticationValidator ,async (req,res)
     }
 
 })
+router.put('/',authenticateTokenAPI, updateNoffication ,async (req,res)=>{
+    let result = validationResult(req)
+    if (result.errors.length === 0) {
+        let { id, title, content, department } = req.body
+        let author = req.user.name
+        const permissionToAdd = await Permission.findOne({ maphong: req.user.type })
+        if (!permissionToAdd || !permissionToAdd.department.includes(department)) {
+            return res.status(404).json({ message: "Không đủ thẩm quyền" })
+        }
+
+        notification.findOneAndUpdate({ _id: id },
+            { $set: { title: title , content: content, author: req.user.name }},{new: true},
+            (err, doc) => {
+            if (err) {
+               return res.status(404).json({message:"Không tìm thấy thông báo"})
+            }
+
+            console.log(doc);
+            return res.status(200).json({message: "success"})
+        });
+
+    }else{
+        let messages =result.mapped()
+        let message = ""
+        for(m in messages){
+            message = messages[m]
+            break
+        }
+        return res.json({message:message})
+    }
+
+})
+
 
 
 module.exports = router

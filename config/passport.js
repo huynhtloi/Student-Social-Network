@@ -27,8 +27,8 @@ module.exports = function (passport) {
                         userId: profile.id
                     })
                     
-                    if(profile._json.hd !== "student.tdtu.edu.vn"){
-                        done(null, false)
+                    if (profile._json.hd !== "student.tdtu.edu.vn") {
+                        return done(false, false,{ message: "Email must be TDTU's mail" })
                     }else{
                         if (user) {
                             return done(null, user)

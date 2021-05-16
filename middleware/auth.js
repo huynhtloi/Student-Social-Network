@@ -3,14 +3,15 @@ module.exports = {
         if (req.isAuthenticated()) {
             return next()
         } else {
-            res.redirect('/auth')
+            return res.redirect('/auth')
         }
     },
     ensureGuest: function (req, res, next) {
         if (!req.isAuthenticated()) {
+            req.flash("loginMessage", req.flash('loginMessage')[0])
             return next();
         } else {
-            res.redirect('/');
+            return  res.redirect('/');
         }
     },
 }

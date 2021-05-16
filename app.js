@@ -108,7 +108,6 @@ app.use("/notification",notificationRouter);
 app.use("/profile", profileRouter);
 
 
-
 // CATCH ERROR AND FORWARD TO HANDLE
 app.use(function (req, res, next) {
 	return res.render("notfound")

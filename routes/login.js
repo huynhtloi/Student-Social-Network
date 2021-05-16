@@ -13,7 +13,7 @@ const User = require('../models/user')
 
 /* GET login page. */
 router.get('/', ensureGuest, async function (req, res, next) {
-	res.setHeader('Cache-Control', "max-age=86400")
+	// res.setHeader('Cache-Control', "max-age=86400")
 	res.render('login', {
 		error: req.flash('loginMessage')
 	});
@@ -60,13 +60,13 @@ router.get(
 	'/google/callback',
 	// passport.authenticate('google', {successRedirect:'/', failureRedirect: '/1231232',failureMessage:"email is not valid"}),
 	(req, res, next) => {
-		passport.authenticate('google', function (err, user, info) {
+		passport.authenticate('google',{successRedirect:'/', failureRedirect: '/auth', failureMessage:"Email must be TDTU's mail"}, function (err, user, info) {
 			if (err) {
 				return next(err);
 			}
 			if (!user) {
 				req.flash('loginMessage', `Email must be TDTU's mail`)
-				return res.redirect('/auth');
+				return res.redirect('/auth')
 			}
 			req.logIn(user, function (err) {
 
