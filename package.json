@@ -34,6 +34,7 @@
     "passport-local-mongoose": "^6.1.0",
     "passport-remember-me": "0.0.1",
     "request": "^2.88.2",
-    "socket.io": "^4.0.0"
+    "socket.io": "^4.0.0",
+    "youtube-embed": "^1.0.0"
   }
 }
