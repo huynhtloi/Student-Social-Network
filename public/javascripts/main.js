@@ -1110,11 +1110,11 @@ $(document).ready(async function () {
                                                         // console.log(dataAuthorComment)
                                                         if (mainUser == comment.author) {
                                                             smallString = `
-                                                            <small data-toggle="modal" data-target="#modalDeleteComment" data-comment="${comment.author}" onclick="smallDeleteComment(this)">Xoá</small>
+                                                            <small data-toggle="modal" data-target="#modalDeleteComment" data-comment="${comment._id}" onclick="smallDeleteComment(this)">Xoá</small>
                                                             `
                                                         }
                                                         let cardStringComment = `
-                                                        <div class="d-flex flex-row mb-2" id="ajax-delete-${comment.author}">
+                                                        <div class="d-flex flex-row mb-2" id="ajax-delete-${comment._id}">
                                                             <a href="./profile?id=${comment.author}">
                                                                 <img src="${dataAuthorComment.user.image}" width="40" class="round-img">
                                                             </a>
