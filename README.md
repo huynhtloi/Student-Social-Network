@@ -22,6 +22,14 @@
 
   ## FUNCTION
 
+  The website is fully responsive for each page, with left menu bar, right menu bar, other options, ...
+
+  ### Login Page
+  * Log in with your school student email
+  * Log in with an account authorized by admin
+
+  ![login](./public/images/ReadMe/login.png)  
+
   ### Home Page
   * Add a post
   * Add a post with photo
@@ -47,8 +55,19 @@
 
   ![Banner_three](./public/images/ReadMe/Banner_three.png)
 
-  ### Detail notifications page
+  ### Detail Notification Page
   * Basic information of a school announcement
 
   ![Banner_four](./public/images/ReadMe/Banner_four.png)
+
+  ### Department Page
+  * Show list of departments
+
+  ![Banner_five](./public/images/ReadMe/Banner_five.png)
+
+  ### Add Department Page
+  * Add account department for the school (only admin account)
+  * Grant permission to edit, add notifications from other departments (only admin account)
+
+  ![Banner_six](./public/images/ReadMe/Banner_six.png)
 </div>
