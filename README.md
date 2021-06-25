@@ -31,11 +31,11 @@
   * Comment on a post
   * Edit, delete my post
   * Edit, delete my comment
-  ![Banner_one](../public/images/Readme/Banner_one.png)
+  ![Banner_one](./public/images/Readme/Banner_one.png)
 
   ### Personal Page
   * See other people's background information
   * Edit information, update avatar
 
-  ![Banner_two](../public/images/Readme/Banner_two.png)
+  ![Banner_two](./public/images/Readme/Banner_two.png)
 </div>
