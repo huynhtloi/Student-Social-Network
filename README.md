@@ -31,6 +31,7 @@
   * Comment on a post
   * Edit, delete my post
   * Edit, delete my comment
+
   ![Banner_one](./public/images/ReadMe/Banner_one.png)
 
   ### Personal Page
