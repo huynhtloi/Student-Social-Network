@@ -39,4 +39,16 @@
   * Edit information, update avatar
 
   ![Banner_two](./public/images/ReadMe/Banner_two.png)
+
+  ### Notification Page
+  * Display the list of notifications of all departments
+  * Notification classification table by department
+  * Delete notifications (only admin account)
+
+  ![Banner_three](./public/images/ReadMe/Banner_three.png)
+
+  ### Detail notifications page
+  * Basic information of a school announcement
+
+  ![Banner_four](./public/images/ReadMe/Banner_four.png)
 </div>
