@@ -1,24 +1,41 @@
 <div align="justify">
 
-# MẠNG XÃ HỘI SINH VIÊN
+  # STUDENT SOCIAL NETWORK
 
-## GIỚI THIỆU
+  ## INTRODUCTION
 
-Với tình hình COVID diễn biến ngày càng phức tạp, cần tăng cường sự tương tác giữa các sinh viên trên nền tảng trực tuyến. Cải tiến hệ thống thông báo (Notification) hiện có trong hệ thống thông tin sinh viên (Student Portal), bổ sung thêm các tính năng giúp sinh viên có thể trao đổi, tương tác trực tuyến và nhận được sự hỗ trợ từ nhà trường tốt hơn.
+  With COVID, the situation is becoming more and more complicated, it is necessary to increase the interaction between students on the online platform. Improve the notification system (Notification) existing in the student information system (Student Portal), adding features to help students change, interact online and receive support. support from Better Than School.
 
-Hệ thống này có thể coi như là một mạng xã hội thu nhỏ nơi nhà trường có thể đăng các thông báo, và sinh viên có thể đăng bài lên để trao đổi và chia sẻ.
+  This system can be considered as a miniature social network where the school can post announcements, and students can post to exchange and share.
 
-## CÔNG CỤ
+  ## TOOLS
 
+  NodeJS Framework
 
-Front-end framework
+  MongoAtlas
 
-Back-end framework
+  Cloudinary
 
-Database: MongoDB
-
-Heroku Hosting: Đưa website lên Cloud
+  Heroku
 
   Website: <a>https://tdtu-social-network.herokuapp.com</a>
 
+  ## FUNCTION
+
+  ### Home Page
+  * Add a post
+  * Add a post with photo
+  * Add a post with video youtube
+  * Add emoji into post
+  * Post Likes
+  * Comment on a post
+  * Edit, delete my post
+  * Edit, delete my comment
+  ![Banner_one](./public/images/Readme/Banner_one.png)
+
+  ### Personal Page
+  * See other people's background information
+  * Edit information, update avatar
+
+  ![Banner_two](./public/images/Readme/Banner_two.png)
 </div>
